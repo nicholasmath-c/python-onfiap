@@ -5,26 +5,32 @@ def perguntar():
                  "<E> - Para Excluir um usuário\n" +
                  "<L> - Para Listar um usuário: ").upper()
 
-def inserirUsuario(val):
+def inserirUsuario(dicionario):
     chave = input("Digite o login: ").upper()
     nome = input("Digite o nome: ").upper()
     data = input("Digite a última data de acesso: ")
     estacao = input("Qual a última estação acessada: ").upper()
-    val[chave] = [nome, data, estacao]
+    dicionario[chave] = [nome, data, estacao]
+    salvarUsuario(dicionario)
 
-def pesquisarUsuario(val):
+def pesquisarUsuario(dicionario):
     chave = input("Insira o login do usuário que deseja listar: ").upper()
     print("/// AQUI ESTÁ O RESULTADO DA SUA BUSCA -> ",
-          val.get(chave),
+          dicionario.get(chave),
           "\n")
 
-def excluirUsuario(val):
+def excluirUsuario(dicionario):
     chave = input("Insira o login do usuário que deseja excluir: ").upper()
-    del val[chave]
+    del dicionario[chave]
     print("Usuário excluído!\n")
-def listarUsuario(val):
-    for chave, valor in val.items():
+def listarUsuario(dicionario):
+    for chave, valor in dicionario.items():
         print("Objeto.......")
         print("Login: ", chave)
         print("Dados: ", valor)
+
+def salvarUsuario(dicionario):
+    with open("bd.txt", "a") as arquivo:
+        for chave, valor in dicionario.items():
+            arquivo.write(chave + ":" + str(valor))
 
